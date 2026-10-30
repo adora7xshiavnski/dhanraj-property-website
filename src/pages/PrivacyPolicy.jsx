@@ -110,12 +110,16 @@ export default function PrivacyPolicy() {
               <li><strong>WhatsApp (Meta):</strong> when you click a WhatsApp button or send the enquiry form via WhatsApp, your message is sent through WhatsApp.</li>
               <li><strong>Google Maps:</strong> the map on our contact section is embedded from Google and may collect usage data.</li>
               <li><strong>Google Fonts:</strong> used to display text on the website, which may log your IP address.</li>
-              <li><strong>Meta Pixel (Meta Platforms):</strong> a tool on our website that records page visits and sends
-                that information, along with technical details such as your IP address, browser and device, to Meta. We
-                use it to measure and improve our advertising on Facebook and Instagram, including showing our ads to
-                people who have visited our website. You can manage how Meta uses this data in your Facebook or
-                Instagram ad preferences.</li>
-              <li><strong>Email:</strong> if you choose to email us, your email provider handles the message.</li>
+              <li><strong>Meta Pixel (Meta Platforms):</strong> a tool on our website that records page visits and
+                actions such as sending an enquiry, tapping our call, WhatsApp or email links, or using the property
+                search, and sends that information, along with technical details such as your IP address, browser and
+                device, to Meta. We do not send your name, phone number or message to Meta. We use it to measure and
+                improve our advertising on Facebook and Instagram, including showing our ads to people who have
+                visited our website. You can manage how Meta uses this data in your Facebook or Instagram ad
+                preferences.</li>
+              <li><strong>Vercel and Google (Gmail):</strong> when you send the enquiry form, your details are
+                processed by our website host (Vercel) and delivered to our inbox through Google's Gmail service.</li>
+              <li><strong>Email:</strong> if you choose to email us directly, your email provider handles the message.</li>
             </ul>
             <p>We are not responsible for the privacy practices of these third parties or of other websites linked from our site.</p>
 

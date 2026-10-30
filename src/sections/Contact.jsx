@@ -3,16 +3,18 @@ import { Link } from 'react-router-dom';
 import SectionHeading from '../components/SectionHeading.jsx';
 import { useToast } from '../components/Toast.jsx';
 import Reveal from '../components/Reveal.jsx';
+import { trackEvent } from '../lib/pixel.js';
 import { SITE, fullAddress, mapsEmbedUrl, mapsLinkUrl, whatsappLink } from '../data/site.js';
 import { MailIcon, PhoneIcon, PinIcon, WhatsAppIcon } from '../components/Icons.jsx';
 
 const INTERESTS = ['Buy a Property', 'Sell a Property', 'Rent a Property', 'Invest in Property', 'Other'];
 
-const EMPTY = { name: '', phone: '', interest: INTERESTS[0], message: '', consent: false };
+const EMPTY = { name: '', phone: '', interest: INTERESTS[0], message: '', consent: false, company: '' };
 
 export default function Contact() {
   const [form, setForm] = useState(EMPTY);
   const [invalid, setInvalid] = useState('');
+  const [sending, setSending] = useState(false);
   const toast = useToast();
 
   const update = (e) => {
@@ -30,6 +32,21 @@ export default function Contact() {
     return null;
   };
 
+  // Shows the validation error and returns false when the form isn't ready to send.
+  const checkForm = () => {
+    const err = validate();
+    if (err) {
+      setInvalid(err.field);
+      document.getElementById(err.field)?.focus();
+      toast({ type: 'error', title: 'Please check your details', message: err.message });
+      return false;
+    }
+    setInvalid('');
+    return true;
+  };
+
+  const firstName = () => form.name.trim().split(' ')[0];
+
   const composeMessage = () =>
     [
       `Hello ${SITE.name},`,
@@ -41,30 +58,51 @@ export default function Contact() {
       .filter(Boolean)
       .join('\n');
 
-  // The site has no backend, so enquiries are handed off to WhatsApp or the visitor's email app.
-  const send = (channel) => {
-    const err = validate();
-    if (err) {
-      setInvalid(err.field);
-      document.getElementById(err.field)?.focus();
-      toast({ type: 'error', title: 'Please check your details', message: err.message });
-      return;
+  // Emails the enquiry to the business through the /api/enquiry serverless function.
+  const sendEmail = async () => {
+    if (sending || !checkForm()) return;
+    setSending(true);
+    try {
+      const res = await fetch('/api/enquiry', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: form.name,
+          phone: form.phone,
+          interest: form.interest,
+          message: form.message,
+          company: form.company,
+        }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error || 'Could not send your enquiry right now.');
+
+      trackEvent('Lead', { content_name: 'Contact form', content_category: form.interest, method: 'email' });
+      toast({
+        type: 'success',
+        title: `Thank you, ${firstName()}!`,
+        message: 'Your enquiry has been sent. We will call you back shortly.',
+      });
+      setForm(EMPTY);
+    } catch (e) {
+      toast({
+        type: 'error',
+        title: 'Enquiry not sent',
+        message: `${e.message} Please try WhatsApp or call ${SITE.phoneDisplay}.`,
+      });
+    } finally {
+      setSending(false);
     }
-    setInvalid('');
-    const text = composeMessage();
-    if (channel === 'whatsapp') {
-      window.open(whatsappLink(text), '_blank', 'noopener');
-    } else {
-      const subject = `Property enquiry: ${form.interest}`;
-      window.location.href = `mailto:${SITE.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}`;
-    }
+  };
+
+  const sendWhatsApp = () => {
+    if (!checkForm()) return;
+    window.open(whatsappLink(composeMessage()), '_blank', 'noopener');
+    trackEvent('Lead', { content_name: 'Contact form', content_category: form.interest, method: 'whatsapp' });
     toast({
       type: 'success',
-      title: `Thank you, ${form.name.trim().split(' ')[0]}!`,
-      message:
-        channel === 'whatsapp'
-          ? 'Your enquiry is ready in WhatsApp. Just press send and we will get back to you shortly.'
-          : 'Your enquiry is ready in your email app. Just press send and we will get back to you shortly.',
+      title: `Thank you, ${firstName()}!`,
+      message: 'Your enquiry is ready in WhatsApp. Just press send and we will get back to you shortly.',
     });
     setForm(EMPTY);
   };
@@ -84,7 +122,7 @@ export default function Contact() {
             noValidate
             onSubmit={(e) => {
               e.preventDefault();
-              send('whatsapp');
+              sendEmail();
             }}
           >
             <div className="field">
@@ -107,11 +145,19 @@ export default function Contact() {
                 id="message"
                 name="message"
                 rows="4"
+                maxLength={2000}
                 value={form.message}
                 onChange={update}
                 placeholder="E.g. 2 BHK flat near Rajendra Nagar, budget 40-50 lakh"
               />
             </div>
+
+            {/* Honeypot: hidden from people, filled in by spam bots, rejected by the server. */}
+            <div className="hp" aria-hidden="true">
+              <label htmlFor="company">Company</label>
+              <input id="company" name="company" value={form.company} onChange={update} tabIndex={-1} autoComplete="off" />
+            </div>
+
             <label className={`consent ${invalid === 'consent' ? 'consent--invalid' : ''}`}>
               <input id="consent" type="checkbox" name="consent" checked={form.consent} onChange={update} />
               <span>
@@ -121,11 +167,12 @@ export default function Contact() {
             </label>
 
             <div className="contact__buttons">
-              <button type="submit" className="btn btn--gold">
-                <WhatsAppIcon width={20} height={20} /> Send on WhatsApp
+              <button type="submit" className="btn btn--gold" disabled={sending} aria-busy={sending}>
+                {sending ? <span className="spinner" aria-hidden="true" /> : <MailIcon width={20} height={20} />}
+                {sending ? 'Sending…' : 'Send Enquiry'}
               </button>
-              <button type="button" className="btn btn--navy" onClick={() => send('email')}>
-                <MailIcon width={20} height={20} /> Send by Email
+              <button type="button" className="btn btn--outline" onClick={sendWhatsApp} disabled={sending}>
+                <WhatsAppIcon width={20} height={20} /> Send on WhatsApp
               </button>
             </div>
           </form>

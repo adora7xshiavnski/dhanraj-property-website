@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import heroPhoto from '../assets/hero-photo.jpg';
 import { SITE, whatsappLink } from '../data/site.js';
 import { useToast } from '../components/Toast.jsx';
+import { trackEvent } from '../lib/pixel.js';
 import { CheckIcon, PhoneIcon, ShieldIcon, WhatsAppIcon } from '../components/Icons.jsx';
 
 const HIGHLIGHTS = ['Verified Properties', 'Expert Guidance', 'Best Deals', 'Trusted Support'];
@@ -28,6 +29,10 @@ function QuickSearch() {
       .filter(Boolean)
       .join('\n');
     window.open(whatsappLink(text), '_blank', 'noopener');
+    trackEvent('Search', {
+      search_string: [mode, type, location.trim(), budget].filter(Boolean).join(' | '),
+      content_category: mode,
+    });
     toast({ title: 'Opening WhatsApp', message: 'Your requirement is ready to send. We will share matching properties.' });
   };
 

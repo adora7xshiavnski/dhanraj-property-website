@@ -541,6 +541,18 @@ p { margin: 0 0 1em; }
 .consent input { margin-top: 0.3rem; accent-color: var(--navy); }
 .consent a { color: var(--navy); font-weight: 600; text-decoration: underline; }
 .contact__buttons { display: flex; flex-wrap: wrap; gap: 0.8rem; }
+.btn:disabled { opacity: 0.7; cursor: wait; transform: none; }
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 2.5px solid rgba(6, 26, 59, 0.25);
+  border-top-color: var(--navy-dark);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+/* Honeypot field: kept in the DOM for bots but invisible to people and screen readers. */
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 
 .contact__info { display: grid; gap: 1rem; }
 .info-card {
