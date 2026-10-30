@@ -16,7 +16,7 @@ const toIntlNumber = (phone) => {
   return digits.length === 10 ? `91${digits}` : digits;
 };
 
-const EMPTY = { name: '', phone: '', email: '', interest: INTERESTS[0], message: '', consent: false, company: '' };
+const EMPTY = { name: '', phone: '', email: '', interest: INTERESTS[0], message: '', consent: false, hp_check: '' };
 
 export default function Contact() {
   const [form, setForm] = useState(EMPTY);
@@ -72,7 +72,7 @@ export default function Contact() {
   const sendEmail = async () => {
     if (sending || !checkForm()) return;
     // Bots fill the hidden honeypot field; pretend it worked without sending anything.
-    if (form.company) {
+    if (form.hp_check) {
       setForm(EMPTY);
       return;
     }
@@ -97,7 +97,8 @@ export default function Contact() {
         message: 'Your enquiry has been sent. We will call you back shortly.',
       });
       setForm(EMPTY);
-    } catch {
+    } catch (e) {
+      console.error('Enquiry email failed:', e?.status, e?.text || e);
       toast({
         type: 'error',
         title: 'Enquiry not sent',
@@ -169,10 +170,11 @@ export default function Contact() {
               />
             </div>
 
-            {/* Honeypot: hidden from people, filled in by spam bots, rejected by the server. */}
+            {/* Honeypot: hidden from people, filled in by spam bots. Its name must not look like an
+                autofill field (e.g. "company"), or browser autofill fills it and real enquiries are dropped. */}
             <div className="hp" aria-hidden="true">
-              <label htmlFor="company">Company</label>
-              <input id="company" name="company" value={form.company} onChange={update} tabIndex={-1} autoComplete="off" />
+              <label htmlFor="hp_check">Leave this empty</label>
+              <input id="hp_check" name="hp_check" value={form.hp_check} onChange={update} tabIndex={-1} autoComplete="off" />
             </div>
 
             <label className={`consent ${invalid === 'consent' ? 'consent--invalid' : ''}`}>
