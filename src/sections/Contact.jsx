@@ -4,12 +4,19 @@ import SectionHeading from '../components/SectionHeading.jsx';
 import { useToast } from '../components/Toast.jsx';
 import Reveal from '../components/Reveal.jsx';
 import { trackEvent } from '../lib/pixel.js';
+import { sendEnquiryEmail } from '../lib/email.js';
 import { SITE, fullAddress, mapsEmbedUrl, mapsLinkUrl, whatsappLink } from '../data/site.js';
 import { MailIcon, PhoneIcon, PinIcon, WhatsAppIcon } from '../components/Icons.jsx';
 
 const INTERESTS = ['Buy a Property', 'Sell a Property', 'Rent a Property', 'Invest in Property', 'Other'];
 
-const EMPTY = { name: '', phone: '', interest: INTERESTS[0], message: '', consent: false, company: '' };
+// Digits with the India country code, used for the call and WhatsApp buttons in the enquiry email.
+const toIntlNumber = (phone) => {
+  const digits = phone.replace(/\D/g, '');
+  return digits.length === 10 ? `91${digits}` : digits;
+};
+
+const EMPTY ={ name: '', phone: '', interest: INTERESTS[0], message: '', consent: false, company: '' };
 
 export default function Contact() {
   const [form, setForm] = useState(EMPTY);
@@ -58,24 +65,25 @@ export default function Contact() {
       .filter(Boolean)
       .join('\n');
 
-  // Emails the enquiry to the business through the /api/enquiry serverless function.
+  // Emails the enquiry to the business through EmailJS.
   const sendEmail = async () => {
     if (sending || !checkForm()) return;
+    // Bots fill the hidden honeypot field; pretend it worked without sending anything.
+    if (form.company) {
+      setForm(EMPTY);
+      return;
+    }
     setSending(true);
     try {
-      const res = await fetch('/api/enquiry', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: form.name,
-          phone: form.phone,
-          interest: form.interest,
-          message: form.message,
-          company: form.company,
-        }),
+      await sendEnquiryEmail({
+        name: form.name.trim(),
+        phone: form.phone.trim(),
+        interest: form.interest,
+        message: form.message.trim() || '(No message)',
+        phone_intl: toIntlNumber(form.phone),
+        to_email: SITE.email,
+        submitted_at: new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }),
       });
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok) throw new Error(data.error || 'Could not send your enquiry right now.');
 
       trackEvent('Lead', { content_name: 'Contact form', content_category: form.interest, method: 'email' });
       toast({
@@ -84,11 +92,11 @@ export default function Contact() {
         message: 'Your enquiry has been sent. We will call you back shortly.',
       });
       setForm(EMPTY);
-    } catch (e) {
+    } catch {
       toast({
         type: 'error',
         title: 'Enquiry not sent',
-        message: `${e.message} Please try WhatsApp or call ${SITE.phoneDisplay}.`,
+        message: `Could not send your enquiry right now. Please try WhatsApp or call ${SITE.phoneDisplay}.`,
       });
     } finally {
       setSending(false);

@@ -117,8 +117,9 @@ export default function PrivacyPolicy() {
                 improve our advertising on Facebook and Instagram, including showing our ads to people who have
                 visited our website. You can manage how Meta uses this data in your Facebook or Instagram ad
                 preferences.</li>
-              <li><strong>Vercel and Google (Gmail):</strong> when you send the enquiry form, your details are
-                processed by our website host (Vercel) and delivered to our inbox through Google's Gmail service.</li>
+              <li><strong>EmailJS and Google (Gmail):</strong> when you send the enquiry form, your details are
+                processed by EmailJS, an email delivery service, and delivered to our inbox through Google's Gmail
+                service.</li>
               <li><strong>Email:</strong> if you choose to email us directly, your email provider handles the message.</li>
             </ul>
             <p>We are not responsible for the privacy practices of these third parties or of other websites linked from our site.</p>
