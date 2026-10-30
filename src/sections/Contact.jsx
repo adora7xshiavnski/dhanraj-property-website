@@ -16,7 +16,7 @@ const toIntlNumber = (phone) => {
   return digits.length === 10 ? `91${digits}` : digits;
 };
 
-const EMPTY ={ name: '', phone: '', interest: INTERESTS[0], message: '', consent: false, company: '' };
+const EMPTY = { name: '', phone: '', email: '', interest: INTERESTS[0], message: '', consent: false, company: '' };
 
 export default function Contact() {
   const [form, setForm] = useState(EMPTY);
@@ -35,6 +35,8 @@ export default function Contact() {
     if (!form.name.trim()) return { field: 'name', message: 'Please enter your full name.' };
     if (!/^[0-9+\-\s]{10,15}$/.test(form.phone.trim()))
       return { field: 'phone', message: 'Please enter a valid 10-digit mobile number.' };
+    if (form.email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim()))
+      return { field: 'email', message: 'Please enter a valid email address, or leave it empty.' };
     if (!form.consent) return { field: 'consent', message: 'Please agree to the Privacy Policy to continue.' };
     return null;
   };
@@ -59,6 +61,7 @@ export default function Contact() {
       `Hello ${SITE.name},`,
       `Name: ${form.name.trim()}`,
       `Phone: ${form.phone.trim()}`,
+      form.email.trim() && `Email: ${form.email.trim()}`,
       `Interested in: ${form.interest}`,
       form.message.trim() && `Message: ${form.message.trim()}`,
     ]
@@ -78,6 +81,8 @@ export default function Contact() {
       await sendEnquiryEmail({
         name: form.name.trim(),
         phone: form.phone.trim(),
+        email: form.email.trim() || 'Not provided',
+        reply_to: form.email.trim(),
         interest: form.interest,
         message: form.message.trim() || '(No message)',
         phone_intl: toIntlNumber(form.phone),
@@ -140,6 +145,10 @@ export default function Contact() {
             <div className="field">
               <label htmlFor="phone">Phone Number</label>
               <input id="phone" name="phone" type="tel" value={form.phone} onChange={update} autoComplete="tel" required aria-invalid={invalid === 'phone'} />
+            </div>
+            <div className="field">
+              <label htmlFor="email">Email Address (optional)</label>
+              <input id="email" name="email" type="email" value={form.email} onChange={update} autoComplete="email" aria-invalid={invalid === 'email'} />
             </div>
             <div className="field">
               <label htmlFor="interest">I am looking to</label>

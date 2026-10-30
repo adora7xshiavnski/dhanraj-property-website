@@ -2,6 +2,7 @@
   EmailJS template for website enquiries.
   Paste into EmailJS → Email Templates → (your template) → Content → Edit Content → Code editor.
   Subject: New enquiry from {{name}} – {{interest}}
+  Reply To: {{reply_to}}
   Variables are sent by src/sections/Contact.jsx.
 -->
 <!DOCTYPE html>
@@ -86,6 +87,10 @@
                   <td style="padding:14px 20px; font-size:15px; font-weight:600; border-bottom:1px solid #eaecf2;">
                     <a href="tel:+{{phone_intl}}" style="color:#0a2a5c; text-decoration:none;">{{phone}}</a>
                   </td>
+                </tr>
+                <tr>
+                  <td width="120" style="padding:14px 20px; font-size:13px; color:#5e6b80; border-bottom:1px solid #eaecf2;">Email</td>
+                  <td style="padding:14px 20px; font-size:15px; font-weight:600; color:#24324a; border-bottom:1px solid #eaecf2;">{{email}}</td>
                 </tr>
                 <tr>
                   <td width="120" valign="top" style="padding:14px 20px; font-size:13px; color:#5e6b80;">Message</td>
