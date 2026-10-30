@@ -27,10 +27,9 @@ const REASONS = [
 
 export default function WhyUs() {
   return (
-    <section className="section section--navy" id="why-us">
+    <section className="section" id="why-us">
       <div className="container">
         <SectionHeading
-          light
           eyebrow="Why Choose Us"
           title="Property Decisions Made Simple"
           text="Buying or selling property is one of life's biggest decisions. We make sure it is also one of the easiest."

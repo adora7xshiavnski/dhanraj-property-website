@@ -70,7 +70,7 @@ export default function Contact() {
   };
 
   return (
-    <section className="section section--cream" id="contact">
+    <section className="section section--soft" id="contact">
       <div className="container">
         <SectionHeading
           eyebrow="Contact Us"

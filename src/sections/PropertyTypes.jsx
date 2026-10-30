@@ -13,7 +13,7 @@ const TYPES = [
 
 export default function PropertyTypes() {
   return (
-    <section className="section section--cream">
+    <section className="section section--soft">
       <div className="container">
         <SectionHeading
           eyebrow="Property Types"

@@ -92,7 +92,7 @@ export default function Hero() {
           </p>
 
           <div className="hero__actions">
-            <Link to="/#contact" className="btn btn--navy btn--lg">Book a Free Consultation</Link>
+            <Link to="/#contact" className="btn btn--navy btn--lg">Book a Consultation</Link>
             <a href={SITE.phoneHref} className="btn btn--outline btn--lg">
               <PhoneIcon width={20} height={20} /> {SITE.phoneDisplay}
             </a>

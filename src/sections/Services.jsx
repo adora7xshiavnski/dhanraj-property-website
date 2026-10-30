@@ -32,7 +32,7 @@ const SERVICES = [
 
 export default function Services() {
   return (
-    <section className="section" id="services">
+    <section className="section section--soft" id="services">
       <div className="container">
         <SectionHeading
           eyebrow="What We Do"
