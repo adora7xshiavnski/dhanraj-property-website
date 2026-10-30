@@ -110,15 +110,21 @@ export default function PrivacyPolicy() {
               <li><strong>WhatsApp (Meta):</strong> when you click a WhatsApp button or send the enquiry form via WhatsApp, your message is sent through WhatsApp.</li>
               <li><strong>Google Maps:</strong> the map on our contact section is embedded from Google and may collect usage data.</li>
               <li><strong>Google Fonts:</strong> used to display text on the website, which may log your IP address.</li>
+              <li><strong>Meta Pixel (Meta Platforms):</strong> a tool on our website that records page visits and sends
+                that information, along with technical details such as your IP address, browser and device, to Meta. We
+                use it to measure and improve our advertising on Facebook and Instagram, including showing our ads to
+                people who have visited our website. You can manage how Meta uses this data in your Facebook or
+                Instagram ad preferences.</li>
               <li><strong>Email:</strong> if you choose to email us, your email provider handles the message.</li>
             </ul>
             <p>We are not responsible for the privacy practices of these third parties or of other websites linked from our site.</p>
 
             <h2 id="cookies">7. Cookies</h2>
             <p>
-              Our website itself does not use advertising or tracking cookies. Embedded third-party services (such as
-              Google Maps) may set their own cookies. You can block or delete cookies through your browser settings;
-              the website will continue to work.
+              Our website uses the Meta Pixel, which sets cookies to measure visits and the performance of our ads on
+              Facebook and Instagram. Embedded third-party services (such as Google Maps) may also set their own
+              cookies. We do not use these cookies to collect your name, phone number or the contents of the enquiry
+              form. You can block or delete cookies through your browser settings; the website will continue to work.
             </p>
 
             <h2 id="retention">8. Data Retention</h2>
