@@ -24,7 +24,7 @@ export default function Footer() {
             <li><Link to="/#services">Services</Link></li>
             <li><Link to="/#why-us">Why Choose Us</Link></li>
             <li><Link to="/#contact">Contact</Link></li>
-            <li><Link to="/privacy-policy">Privacy Policy</Link></li>
+            <li><a href="/privacy-policy">Privacy Policy</a></li>
           </ul>
         </div>
 
@@ -60,7 +60,7 @@ export default function Footer() {
       <div className="footer__bottom">
         <div className="container footer__bottom-inner">
           <span>© {year} {SITE.name}. All rights reserved.</span>
-          <Link to="/privacy-policy">Privacy Policy</Link>
+          <a href="/privacy-policy">Privacy Policy</a>
         </div>
       </div>
     </footer>

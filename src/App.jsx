@@ -7,7 +7,6 @@ import BackToTop from './components/BackToTop.jsx';
 import MetaPixelTracker from './components/MetaPixelTracker.jsx';
 import CallLinkHandler from './components/CallLinkHandler.jsx';
 import Home from './pages/Home.jsx';
-import PrivacyPolicy from './pages/PrivacyPolicy.jsx';
 import NotFound from './pages/NotFound.jsx';
 
 export default function App() {
@@ -20,7 +19,6 @@ export default function App() {
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import SectionHeading from '../components/SectionHeading.jsx';
 import { useToast } from '../components/Toast.jsx';
 import Reveal from '../components/Reveal.jsx';
@@ -181,7 +180,7 @@ export default function Contact() {
               <input id="consent" type="checkbox" name="consent" checked={form.consent} onChange={update} />
               <span>
                 I agree that {SITE.name} may contact me about my enquiry, as described in the{' '}
-                <Link to="/privacy-policy">Privacy Policy</Link>.
+                <a href="/privacy-policy">Privacy Policy</a>.
               </span>
             </label>
 

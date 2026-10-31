@@ -738,45 +738,7 @@ p { margin: 0 0 1em; }
 .to-top--show { opacity: 1; transform: none; pointer-events: auto; }
 .to-top:hover { background: var(--gold-gradient); color: var(--white); border-color: transparent; }
 
-/* ---------- Privacy policy & inner pages ---------- */
-.page-hero {
-  padding: 4.5rem 0 3.5rem;
-  text-align: center;
-  background:
-    radial-gradient(ellipse at 50% 0%, rgba(242, 207, 99, 0.2), transparent 60%),
-    var(--white);
-  border-bottom: 1px solid var(--border);
-  color: var(--muted);
-}
-.page-hero h1 { font-size: clamp(2.2rem, 4.5vw, 3.2rem); }
-.page-hero p { margin: 0; }
-
-.policy-wrap { padding-top: 4rem; }
-.policy { display: grid; grid-template-columns: 260px 1fr; gap: 3rem; align-items: start; }
-.policy__toc {
-  position: sticky;
-  top: calc(var(--header-h) + 20px);
-  background: var(--white);
-  border-radius: var(--radius);
-  padding: 1.5rem;
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow);
-}
-.policy__toc h2 { font-size: 1.1rem; }
-.policy__toc ol { margin: 0; padding-left: 1.2rem; display: grid; gap: 0.45rem; font-size: 0.88rem; }
-.policy__toc a { color: var(--muted); }
-.policy__toc a:hover { color: var(--navy); }
-.policy__body { max-width: 780px; }
-.policy__body h2 { font-size: 1.45rem; margin-top: 2.4rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); }
-.policy__body h2:first-child { margin-top: 0; }
-.policy__body ul { padding-left: 1.3rem; margin: 0 0 1rem; display: grid; gap: 0.5rem; }
-.policy__body li::marker { color: var(--gold); }
-.policy__body a { color: var(--navy); font-weight: 600; }
-.policy__contact { background: var(--cream); border-left: 4px solid var(--gold); border-radius: 10px; padding: 1.2rem 1.4rem; margin-bottom: 1rem; }
-.policy__contact p { margin: 0.2rem 0; }
-.policy__back { margin-top: 2.5rem; }
-.policy__back a { color: var(--white); }
-
+/* ---------- Inner pages ---------- */
 .not-found { text-align: center; min-height: 50vh; display: grid; place-items: center; }
 .not-found h1 { font-size: 2.6rem; }
 
@@ -817,15 +779,13 @@ p { margin: 0 0 1em; }
   .hero { padding-top: 2.5rem; }
   .hero__grid,
   .about,
-  .contact,
-  .policy { grid-template-columns: 1fr; }
+  .contact { grid-template-columns: 1fr; }
   .hero__grid { gap: 3rem; }
   .hero__float--top { left: 12px; top: -18px; }
   .hero__float--bottom { right: 12px; bottom: -22px; }
   .hero__search { margin-top: 3.5rem; }
   .about { gap: 4rem; }
   .about__media { max-width: 420px; margin: 0 auto; }
-  .policy__toc { position: static; }
 }
 
 @media (max-width: 600px) {
