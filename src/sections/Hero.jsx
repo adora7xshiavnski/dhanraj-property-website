@@ -29,10 +29,8 @@ function QuickSearch() {
       .filter(Boolean)
       .join('\n');
     window.open(whatsappLink(text), '_blank', 'noopener');
-    trackEvent('Search', {
-      search_string: [mode, type, location.trim(), budget].filter(Boolean).join(' | '),
-      content_category: mode,
-    });
+    // Only generic choices go to Meta; never the typed location or the budget.
+    trackEvent('Search', { content_category: mode });
     toast({ title: 'Opening WhatsApp', message: 'Your requirement is ready to send. We will share matching properties.' });
   };
 

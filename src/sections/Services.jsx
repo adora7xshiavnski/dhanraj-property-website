@@ -26,7 +26,7 @@ const SERVICES = [
     icon: BuildingIcon,
     title: 'Invest',
     subtitle: 'For a Better Future',
-    text: 'Guidance on residential and commercial opportunities in growing areas of Indore, so your money works harder for you.',
+    text: 'Guidance on residential and commercial opportunities in growing areas of Indore, with clear advice on location, legal checks and documentation.',
   },
 ];
 
