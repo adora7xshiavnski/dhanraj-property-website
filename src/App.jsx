@@ -4,7 +4,6 @@ import Footer from './components/Footer.jsx';
 import WhatsAppButton from './components/WhatsAppButton.jsx';
 import ScrollManager from './components/ScrollManager.jsx';
 import BackToTop from './components/BackToTop.jsx';
-import MetaPixelTracker from './components/MetaPixelTracker.jsx';
 import CallLinkHandler from './components/CallLinkHandler.jsx';
 import Home from './pages/Home.jsx';
 import NotFound from './pages/NotFound.jsx';
@@ -13,7 +12,6 @@ export default function App() {
   return (
     <>
       <ScrollManager />
-      <MetaPixelTracker />
       <CallLinkHandler />
       <Header />
       <main>
