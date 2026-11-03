@@ -18,6 +18,23 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
 
+  <!-- Meta Pixel Code -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    // No automatic button-click events (they caused the EmailButtonClick duplicates).
+    fbq('set', 'autoConfig', false, '1847805576251044');
+    fbq('init', '1847805576251044');
+    // eventID lets Meta deduplicate this with the same event from the Conversions API.
+    fbq('track', 'PageView', {}, { eventID: 'pv-' + Date.now() + '-' + Math.random().toString(36).slice(2) });
+  </script>
+  <!-- End Meta Pixel Code -->
 
   <style>
     :root {
@@ -82,6 +99,7 @@
   </style>
 </head>
 <body>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1847805576251044&ev=PageView&noscript=1" /></noscript>
 
   <header class="header">
     <div class="container header__inner">
@@ -112,7 +130,7 @@
           <li><a href="#consent">Consent</a></li>
           <li><a href="#share">Sharing of Information</a></li>
           <li><a href="#third-party">Third-Party Services</a></li>
-          <li><a href="#cookies">Cookies</a></li>
+          <li><a href="#cookies">Cookies and Meta Pixel</a></li>
           <li><a href="#retention">Data Retention</a></li>
           <li><a href="#security">Data Security</a></li>
           <li><a href="#rights">Your Rights</a></li>
@@ -147,7 +165,7 @@
           <li><strong>Property details (for owners, sellers and landlords):</strong> property address, ownership details, photographs, price expectations and related documents you choose to share.</li>
           <li><strong>Transaction documents:</strong> where you proceed with a deal, copies of identity and address proof (such as Aadhaar or PAN), sale or rental agreements and other documents required for verification, agreement or registration.</li>
           <li><strong>Communication records:</strong> messages, emails and notes of calls you have with us.</li>
-          <li><strong>Technical information:</strong> basic information such as browser type, device type, IP address and pages visited, collected automatically by our website host.</li>
+          <li><strong>Technical information:</strong> basic information such as browser type, device type, IP address and pages visited, collected automatically by our website host and by the Meta Pixel described in section 7.</li>
         </ul>
         <p>
           Our website does not process online payments and does not ask for bank, card or UPI details. We will never
@@ -162,6 +180,7 @@
           <li>To verify property and party details, and to prepare agreements and documentation.</li>
           <li>To coordinate with lawyers, banks or loan providers and registration authorities, when you ask us to.</li>
           <li>To send you updates on relevant properties, where you have agreed to receive them.</li>
+          <li>To measure and improve our advertising on Facebook and Instagram.</li>
           <li>To comply with legal obligations and to protect against fraud or misuse.</li>
         </ul>
 
@@ -193,11 +212,18 @@
         </ul>
         <p>We are not responsible for the privacy practices of these third parties or of other websites linked from our site.</p>
 
-        <h2 id="cookies">7. Cookies</h2>
+        <h2 id="cookies">7. Cookies and Meta Pixel</h2>
         <p>
-          Our website does not use advertising or tracking cookies, and does not use the Meta Pixel or similar
-          tracking tools. Embedded third-party services (such as Google Maps) may set their own cookies. You can block
-          or delete cookies through your browser settings; the website will continue to work.
+          Our website uses the Meta Pixel, a tool from Meta Platforms that sets cookies and records page visits and
+          actions such as sending an enquiry, tapping our call, WhatsApp or email links, or using the property search.
+          It sends this information, along with technical details such as your IP address, browser and device, to Meta.
+          We do not send your name, phone number or message to Meta through the Pixel. We use it to measure and improve
+          our advertising on Facebook and Instagram, including showing our ads to people who have visited our website.
+        </p>
+        <p>
+          Embedded third-party services (such as Google Maps) may also set their own cookies. You can block or delete
+          cookies through your browser settings, and manage how Meta uses this data in your Facebook or Instagram ad
+          preferences. The website will continue to work.
         </p>
 
         <h2 id="retention">8. Data Retention</h2>

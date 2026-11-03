@@ -2,6 +2,7 @@ import { useState } from 'react';
 import SectionHeading from '../components/SectionHeading.jsx';
 import { useToast } from '../components/Toast.jsx';
 import Reveal from '../components/Reveal.jsx';
+import { trackEvent } from '../lib/pixel.js';
 import { sendEnquiryEmail } from '../lib/email.js';
 import { SITE, fullAddress, mapsEmbedUrl, mapsLinkUrl, whatsappLink } from '../data/site.js';
 import { MailIcon, PhoneIcon, PinIcon, WhatsAppIcon } from '../components/Icons.jsx';
@@ -88,6 +89,7 @@ export default function Contact() {
         submitted_at: new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }),
       });
 
+      trackEvent('Lead', { content_name: 'Contact form', content_category: form.interest, method: 'email' });
       toast({
         type: 'success',
         title: `Thank you, ${firstName()}!`,
@@ -109,6 +111,7 @@ export default function Contact() {
   const sendWhatsApp = () => {
     if (!checkForm()) return;
     window.open(whatsappLink(composeMessage()), '_blank', 'noopener');
+    trackEvent('Lead', { content_name: 'Contact form', content_category: form.interest, method: 'whatsapp' });
     toast({
       type: 'success',
       title: `Thank you, ${firstName()}!`,
